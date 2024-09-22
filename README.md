@@ -36,6 +36,18 @@ This project is a React application built with Vite and TypeScript, integrating 
 
 This application demonstrates how to integrate the Google Drive API into a React application built with Vite and TypeScript. It allows users to authenticate with Google, create files, and list files in their Google Drive.
 
+## Screencaps
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/d7de12e5-396c-4c3a-bb6e-4a2145f8dcc0" alt="Screenshot 1" width="400"/>
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/c18a35d2-4a86-4519-a85a-64214212d106" alt="Screenshot 2" width="400"/>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## Prerequisites
