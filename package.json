@@ -10,11 +10,16 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"bootstrap": "^5.3.3",
+		"gapi-script": "^1.2.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.9.0",
+		"@types/gapi": "^0.0.47",
+		"@types/gapi.auth2": "^0.0.61",
+		"@types/gapi.client.drive": "^3.0.15",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"@vitejs/plugin-react": "^4.3.1",
