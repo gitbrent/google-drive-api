@@ -34,6 +34,7 @@ const MainPage: React.FC = () => {
 		try {
 			const response = await createFile(`Sample_${new Date().toISOString()}.txt`, 'Hello, Google Drive!');
 			console.log('File Created:', response);
+			fetchFiles();
 		} catch (error) {
 			console.error('Error Creating File:', error);
 		}
@@ -50,7 +51,7 @@ const MainPage: React.FC = () => {
 					<div>
 						<h5>Your Files</h5>
 						{loading ? (
-							<p>Loading files...</p>
+							<div className="alert alert-primary">Loading files...</div>
 						) : files.length > 0 ? (
 							<ul>
 								{files.map((file) => {
@@ -67,7 +68,7 @@ const MainPage: React.FC = () => {
 								})}
 							</ul>
 						) : (
-							<p>No files found.</p>
+							<div className="alert alert-warning">No files found.</div>
 						)}
 					</div>
 				</section>

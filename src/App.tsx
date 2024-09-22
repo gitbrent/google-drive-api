@@ -37,16 +37,25 @@ const App: React.FC = () => {
 
 	return (
 		<main>
-			<h2>Google Drive API Testbed</h2>
-			<section className='bg-primary-subtle p-4 my-4'>
-				<h5 className="mb-0">LFG!</h5>
-			</section>
-			<h5>AuthProvider</h5>
-			<section className='bg-success-subtle p-4 mt-4'>
-				<AuthProvider>
-					<MainPage />
-				</AuthProvider>
-			</section>
+			<h1>Google Drive API</h1>
+
+			<div className="card text-bg-success my-5">
+				<div className="card-body">
+					<h5 className="card-title">Demo Portal</h5>
+					<p className="card-text">Modern implementation of Google Drive API v3 using React &amp; TypeScript.</p>
+				</div>
+			</div>
+
+			<div className="card my-5">
+				<div className="card-header text-bg-primary">
+					<h5 className="mb-0">Drive API Component</h5>
+				</div>
+				<div className="card-body bg-primary-subtle p-4">
+					<AuthProvider>
+						<MainPage />
+					</AuthProvider>
+				</div>
+			</div>
 		</main>
 	);
 };
