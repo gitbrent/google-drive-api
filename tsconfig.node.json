@@ -16,7 +16,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Brent (via ChatGPT): add support for GAPI types */
+    "typeRoots": ["node_modules/@types"],
+    "types": ["gapi", "gapi.auth2", "gapi.client.drive"]
   },
   "include": ["vite.config.ts"]
 }
