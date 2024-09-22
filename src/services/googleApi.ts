@@ -2,14 +2,14 @@
 // src/services/googleApi.ts
 import { gapi } from 'gapi-script';
 
-const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+export const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
-const DISCOVERY_DOCS = [
+export const DISCOVERY_DOCS = [
 	'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
 ];
 
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+export const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 export const initClient = () => {
 	return gapi.client
@@ -89,3 +89,18 @@ export const createFile = async (name: string, content: string) => {
 };
 
 // Additional API methods (e.g., readFile, updateFile, deleteFile)
+
+export const listFiles = async (): Promise<gapi.client.drive.File[]> => {
+	try {
+		const response = await gapi.client.drive.files.list({
+			pageSize: 100,
+			fields: 'files(id, name, mimeType)',
+		});
+
+		const files = response.result.files;
+		return files || [];
+	} catch (error) {
+		console.error('Error fetching files:', error);
+		throw error;
+	}
+};
