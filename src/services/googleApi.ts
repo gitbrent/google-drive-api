@@ -1,5 +1,4 @@
 /// <reference types="gapi.client.drive" />
-// src/services/googleApi.ts
 import { gapi } from 'gapi-script';
 
 export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
