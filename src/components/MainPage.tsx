@@ -1,7 +1,7 @@
 // src/components/MainPage.tsx
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { createFile, listFiles } from '../services/googleApi';
+import { createFile, listFiles } from '../googleApiModule'
 
 const MainPage: React.FC = () => {
 	const { isSignedIn, signIn, signOut } = useContext(AuthContext);

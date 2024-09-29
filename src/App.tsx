@@ -1,38 +1,33 @@
-// src/App.tsx
 import React, { useEffect, useState } from 'react';
 import { gapi } from 'gapi-script';
 import { AuthProvider } from './context/AuthContext';
 import MainPage from './components/MainPage';
-import { CLIENT_ID, API_KEY, DISCOVERY_DOCS, SCOPES } from './services/googleApi';
+import { initClient } from './googleApiModule';
+
+const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 const App: React.FC = () => {
 	const [gapiInitialized, setGapiInitialized] = useState<boolean>(false);
 
 	useEffect(() => {
-		const initClient = () => {
-			gapi.client
-				.init({
-					apiKey: API_KEY,
-					clientId: CLIENT_ID,
-					discoveryDocs: DISCOVERY_DOCS,
-					scope: SCOPES,
-				})
-				.then(
-					() => {
-						console.log('GAPI client initialized.');
-						setGapiInitialized(true);
-					},
-					(error) => {
-						console.error('Error initializing GAPI client:', error);
-					}
-				);
+		const start = () => {
+			initClient({
+				apiKey: API_KEY,
+				clientId: CLIENT_ID,
+				discoveryDocs: DISCOVERY_DOCS,
+				scope: SCOPES,
+			}).then(() => {
+				setGapiInitialized(true);
+			});
 		};
-
-		gapi.load('client:auth2', initClient);
+		gapi.load('client:auth2', start);
 	}, []);
 
 	if (!gapiInitialized) {
-		return <div>Loading...</div>; // You can replace this with a loader/spinner
+		return <div>Loading...</div>;
 	}
 
 	return (
