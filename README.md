@@ -2,38 +2,6 @@
 
 This project is a React and TypeScript application built with Vite, integrating with the Google Drive API to read and write files.
 
-## Table of Contents
-
-- [Google Drive API Integration using React + TypeScript](#google-drive-api-integration-using-react--typescript)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Screencaps](#screencaps)
-  - [Prerequisites](#prerequisites)
-  - [Getting Started](#getting-started)
-    - [1. Clone the Repository](#1-clone-the-repository)
-    - [2. Install Dependencies](#2-install-dependencies)
-    - [3. Set Up Google API Credentials](#3-set-up-google-api-credentials)
-      - [a. Create a New Project](#a-create-a-new-project)
-      - [b. Enable the Google Drive API](#b-enable-the-google-drive-api)
-      - [c. Configure the OAuth Consent Screen](#c-configure-the-oauth-consent-screen)
-      - [d. Create OAuth 2.0 Client ID](#d-create-oauth-20-client-id)
-      - [e. Obtain an API Key (Optional)](#e-obtain-an-api-key-optional)
-    - [4. Create the `.env` File](#4-create-the-env-file)
-    - [5. Run the Application](#5-run-the-application)
-  - [index.html Script Configuration](#indexhtml-script-configuration)
-  - [Project Structure](#project-structure)
-  - [Available Scripts](#available-scripts)
-  - [Additional Configuration](#additional-configuration)
-    - [Environment Variables](#environment-variables)
-    - [Using Bootstrap (Optional)](#using-bootstrap-optional)
-  - [Expanding the ESLint Configuration](#expanding-the-eslint-configuration)
-  - [License](#license)
-  - [Troubleshooting and Tips](#troubleshooting-and-tips)
-    - [Google Identity Services \& API Scripts](#google-identity-services--api-scripts)
-    - [General Troubleshooting](#general-troubleshooting)
-
----
-
 ## Introduction
 
 This application demonstrates how to integrate the Google Drive API into a React application built with Vite and TypeScript. It allows users to authenticate with Google, create files, and list files in their Google Drive.
