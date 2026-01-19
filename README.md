@@ -1,6 +1,6 @@
 # Google Drive API Integration using React + TypeScript
 
-This project is a React application built with Vite and TypeScript, integrating with the Google Drive API to read and write files.
+This project is a React and TypeScript application built with Vite, integrating with the Google Drive API to read and write files.
 
 ## Table of Contents
 
@@ -38,12 +38,12 @@ This project is a React application built with Vite and TypeScript, integrating 
 
 This application demonstrates how to integrate the Google Drive API into a React application built with Vite and TypeScript. It allows users to authenticate with Google, create files, and list files in their Google Drive.
 
-**Authentication Method**: This project uses the **Google Identity Services (GIS)** library for OAuth 2.0 authentication (upgraded from the legacy Google API client library). The required scripts are loaded in the `index.html` file and must be included in any project implementing this authentication/service pattern.
+**Authentication Method**: This project uses the **Google Identity Services (GIS)** library for OAuth 2.0 authentication. The required scripts are loaded in the `index.html` file and must be included in any project implementing this authentication/service pattern.
 
 ## Screencaps
 
-![Screenshot 1](https://github.com/user-attachments/assets/d7de12e5-396c-4c3a-bb6e-4a2145f8dcc0)
-![Screenshot 2](https://github.com/user-attachments/assets/c18a35d2-4a86-4519-a85a-64214212d106)
+![app-screenshot-unauthenticated](https://github.com/user-attachments/assets/d7de12e5-396c-4c3a-bb6e-4a2145f8dcc0)
+![app-screenshot-authenticated](https://github.com/user-attachments/assets/c18a35d2-4a86-4519-a85a-64214212d106)
 
 ---
 
@@ -81,7 +81,7 @@ To use the Google Drive API, you need to set up a project in the Google Cloud Co
 1. **Go to** the [Google Cloud Console](https://console.developers.google.com/).
 2. **Sign in** with your Google account if you haven't already.
 3. **Click** on the project dropdown at the top of the page and select **New Project**.
-4. **Enter** a project name (e.g., `My React Drive App`) and **click** **Create**.
+4. **Enter** a project name (e.g., `My React App`) and **click** **Create**.
 
 #### b. Enable the Google Drive API
 
@@ -112,14 +112,14 @@ To use the Google Drive API, you need to set up a project in the Google Cloud Co
 3. **Choose** **Web Application** as the application type.
 4. **Enter** a name for the client (e.g., `React App Client`).
 5. **Under** **Authorized JavaScript Origins**, **add**:
-   - `http://localhost:5173` (adjust the port if your development server runs on a different port)
+   - `http://localhost:5173` (adjust if your development server runs on a different port)
 6. **Leave** **Authorized Redirect URIs** empty (unless specifically needed).
 7. **Click** **Create**.
 8. **Copy** the **Client ID** and **Client Secret**.
 
 #### e. Obtain an API Key (Optional)
 
-If your application requires an API key:
+While GAPI can theoretically work with just an Auth Token, providing an API Key is recommended to handle quota management and public file access reliably.
 
 1. **In** **APIs & Services > Credentials**, **click** on **Create Credentials** and select **API key**.
 2. **Copy** the generated **API Key**.
@@ -176,7 +176,7 @@ In the `<head>` section of your `index.html`, include:
 
 ## Project Structure
 
-```
+```text
 your-project/
 ├── .env
 ├── .gitignore
