@@ -1,6 +1,6 @@
 // src/components/MainPage.tsx
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext.ts';
 import { createFile, listFiles } from '../services/googleApi';
 
 const MainPage: React.FC = () => {
