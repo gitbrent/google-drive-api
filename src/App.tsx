@@ -1,42 +1,11 @@
 // src/App.tsx
-import React, { useEffect, useState } from 'react';
-import { gapi } from 'gapi-script';
-import { AuthProvider } from './context/AuthContext';
+import React from 'react';
+import { AuthProvider } from './context/AuthProvider';
 import MainPage from './components/MainPage';
-import { CLIENT_ID, API_KEY, DISCOVERY_DOCS, SCOPES } from './services/googleApi';
 
 const App: React.FC = () => {
-	const [gapiInitialized, setGapiInitialized] = useState<boolean>(false);
-
-	useEffect(() => {
-		const initClient = () => {
-			gapi.client
-				.init({
-					apiKey: API_KEY,
-					clientId: CLIENT_ID,
-					discoveryDocs: DISCOVERY_DOCS,
-					scope: SCOPES,
-				})
-				.then(
-					() => {
-						console.log('GAPI client initialized.');
-						setGapiInitialized(true);
-					},
-					(error) => {
-						console.error('Error initializing GAPI client:', error);
-					}
-				);
-		};
-
-		gapi.load('client:auth2', initClient);
-	}, []);
-
-	if (!gapiInitialized) {
-		return <div>Loading...</div>; // You can replace this with a loader/spinner
-	}
-
 	return (
-		<main>
+		<main className="container my-5">
 			<h1>Google Drive API</h1>
 
 			<div className="card text-bg-success my-5">

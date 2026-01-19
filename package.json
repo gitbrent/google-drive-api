@@ -21,6 +21,7 @@
 		"@types/gapi": "^0.0.47",
 		"@types/gapi.auth2": "^0.0.61",
 		"@types/gapi.client.drive": "^3.0.15",
+		"@types/google.accounts": "^0.0.18",
 		"@types/react": "^19.2.8",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^5.1.2",
