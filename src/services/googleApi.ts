@@ -1,105 +1,89 @@
-/// <reference types="gapi.client.drive" />
-import { gapi } from 'gapi-script';
+/**
+ * @file Google Drive API service module
+ * @description Provides utility functions to interact with Google Drive API
+ * including initializing the GAPI client, listing files, and creating files.
+ */
 
-export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-export const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+export const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
+const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
 
-export const DISCOVERY_DOCS = [
-	'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
-];
+/**
+ * Initializes the Google API client
+ * @async
+ * @function initGapiClient
+ * @returns {Promise<void>}
+ */
+export const initGapiClient = async () => {
+	await gapi.client.init({
+		apiKey: API_KEY,
+		discoveryDocs: DISCOVERY_DOCS,
+	})
+}
 
-export const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+// IMPORTANT: Before making calls, ensure GAPI has the latest token from GIS
+// gapi.client.setToken({ access_token: getAccessToken() });
 
-export const initClient = () => {
-	return gapi.client
-		.init({
-			apiKey: API_KEY,
-			clientId: CLIENT_ID,
-			discoveryDocs: DISCOVERY_DOCS,
-			scope: SCOPES,
-		})
-		.then(
-			() => {
-				console.log('GAPI client initialized.');
-			},
-			(error) => {
-				console.error('Error initializing GAPI client:', error);
-			}
-		);
-};
-
-export const signIn = () => {
-	return gapi.auth2.getAuthInstance().signIn();
-};
-
-export const signOut = () => {
-	return gapi.auth2.getAuthInstance().signOut();
-};
-/*
-const getCurrentScopes = () => {
-	const authInstance = gapi.auth2.getAuthInstance();
-	if (authInstance) {
-		const currentUser = authInstance.currentUser.get();
-		const scopes = currentUser.getGrantedScopes();
-		console.log('Granted Scopes:', scopes);
-	}
-};
-*/
-
-export const createFile = async (name: string, content: string) => {
-	// getCurrentScopes() // DEBUG: ensure scopes!
-
+/**
+ * Lists files from Google Drive
+ * @async
+ * @function listFiles
+ * @returns {Promise<gapi.client.drive.File[]>} Array of files from Google Drive
+ * @throws {Error} When file retrieval fails
+ */
+export const listFiles = async (): Promise<gapi.client.drive.File[]> => {
 	try {
-		const boundary = '-------314159265358979323846';
-		const delimiter = `\r\n--${boundary}\r\n`;
-		const closeDelimiter = `\r\n--${boundary}--`;
+		const response = await gapi.client.drive.files.list({
+			pageSize: 10,
+			fields: 'nextPageToken, files(id, name, mimeType)',
+		})
+		return response.result.files || []
+	} catch (error) {
+		console.error('Error listing files:', error)
+		throw new Error('Failed to retrieve files from Google Drive.')
+	}
+}
 
+/**
+ * Creates a new file in Google Drive
+ * @async
+ * @function createFile
+ * @param {string} name - The name of the file to create
+ * @param {string} content - The content of the file
+ * @returns {Promise<any>} The created file object from Google Drive API response
+ * @throws {Error} When file creation fails
+ */
+export const createFile = async (name: string, content: string) => {
+	try {
+		const boundary = 'foo_bar_baz'
+		const delimiter = `\r\n--${boundary}\r\n`
+		const close_delim = `\r\n--${boundary}--`
+
+		const contentType = 'text/plain'
 		const metadata = {
-			name,
-			mimeType: 'text/plain',
-		};
+			name: name,
+			mimeType: contentType,
+		}
 
 		const multipartRequestBody =
-			delimiter +
-			'Content-Type: application/json\r\n\r\n' +
+			`${delimiter}Content-Type: application/json\r\n\r\n` +
 			JSON.stringify(metadata) +
-			delimiter +
-			'Content-Type: text/plain\r\n\r\n' +
+			`${delimiter}Content-Type: ${contentType}\r\n\r\n` +
 			content +
-			closeDelimiter;
+			close_delim
 
 		const response = await gapi.client.request({
 			path: '/upload/drive/v3/files',
 			method: 'POST',
-			params: {
-				uploadType: 'multipart',
-			},
+			params: { uploadType: 'multipart' },
 			headers: {
 				'Content-Type': `multipart/related; boundary="${boundary}"`,
 			},
 			body: multipartRequestBody,
-		});
+		})
 
-		return response;
+		return response.result
 	} catch (error) {
-		console.error('Error creating file:', error);
-		throw error;
+		console.error('Error creating file:', error)
+		throw new Error('Failed to create file in Google Drive.')
 	}
-};
-
-// Additional API methods (e.g., readFile, updateFile, deleteFile)
-
-export const listFiles = async (): Promise<gapi.client.drive.File[]> => {
-	try {
-		const response = await gapi.client.drive.files.list({
-			pageSize: 100,
-			fields: 'files(id, name, mimeType)',
-		});
-
-		const files = response.result.files;
-		return files || [];
-	} catch (error) {
-		console.error('Error fetching files:', error);
-		throw error;
-	}
-};
+}

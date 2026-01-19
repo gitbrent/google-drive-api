@@ -1,0 +1,32 @@
+node_modules
+dist
+coverage
+.vscode
+
+
+# Repo docs, metadata, and guidance files (skip formatting checks)
+AGENT.md
+README.md
+MIGRATION-GUIDE.md
+MIGRATION-SUMMARY.md
+PRIVACY.md
+components.json
+
+# GitHub configs and agent instructions
+.github
+
+# Public/static assets (served files)
+public
+
+# Firebase / root site files
+firebase.json
+index.html
+
+# Tooling/config files we don't want Prettier to check
+eslint.config.js
+tailwind.config.js
+vite.config.ts
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+lib/utils.ts
